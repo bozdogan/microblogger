@@ -1,0 +1,40 @@
+:root {
+    font-size: 16px;
+}
+
+body {
+    font-family: Inter, "Open Sans", sans-serif;
+}
+
+main {
+    width: 720px;
+    margin: 0 auto;
+}
+
+.card {
+    background: #eef;
+    border-radius: 1rem;
+    margin: 16px 0;
+    padding: 16px;
+    text-align: right;
+}
+
+.card-message {
+    font: normal 1.2rem "PT Serif", Cambria, serif;
+    text-align: left;
+}
+
+.card-date {
+    color: lightslategrey;
+    font-style: italic;
+    font-size: .8rem;
+}
+
+.card-author {
+    margin-left: 1rem;
+}
+
+.card-author::before
+{
+    content: '~';
+}
