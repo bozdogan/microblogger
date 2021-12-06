@@ -1,30 +1,26 @@
 const express = require("express");
-const app = express();
-const path = require("path");
 const mongoose = require("mongoose");
+const path = require("path");
 
-const Post = require("./models/post");
+const defineRoutes = require("./routes");
 
 mongoose.connect("mongodb://127.0.0.1:27017/wallposter")
 .then(() => {
     console.log("MONGO OK")
 })
 .catch(err => {
-    console.log("AH FUCK! I CAN'T BELIEVE YOU'VE DONE THIS.");
+    console.log("DATABASE CONNECTION ERROR");
     console.log(err);
 });
 
+const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "static")));
+app.use(express.urlencoded({extended: true}));
 
-app.get("/posts", async (req, res) => {
-    const posts = await Post.find({});
-    console.log(posts);
-    res.render("posts/index", {posts});
-});
-
+defineRoutes(app);
 
 app.listen(3001, () => {
     console.log("LISTENING ON 3001");

@@ -10,17 +10,18 @@
 </head>
 <body>
   <main>
-    <h1>Posts on Your Wall</h1>
+    <h1>Single Post</h1>
+    <%- include("../partials/nav.ejs") %>
     
-    <%_ for(let it of posts) { _%>
-    <div class="card">
+    <% if(post) { %>
+    <div class="card bigger">
       <div class="card-message">
-        <%= it.message %> 
+        <%= post.message %> 
       </div>
-      <span class="card-date"><%= it.date_created.toLocaleString() %></span>
-      <span class="card-author"><%= it.author %></span>
+      <span class="card-date"><%= post.date_created.toLocaleString() %></span>
+      <span class="card-author"><%= post.author %></span>
     </div>
-    <%_ } _%>
+    <% } %>
   </main>
 </body>
 </html>
