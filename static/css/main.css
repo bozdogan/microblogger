@@ -6,6 +6,10 @@ body {
     font-family: Inter, "Open Sans", sans-serif;
 }
 
+h1, h2, h3, h4, h5 {
+    font-family: "PT Serif", Cambria, serif;
+}
+
 main {
     width: 720px;
     margin: 0 auto;
@@ -26,12 +30,8 @@ main {
 }
 
 .card-message {
-    font: normal 1.2em "PT Serif", Cambria, serif;
+    font-size: 1.2em;
     text-align: left;
-}
-
-.card.bigger .card-message {
-    font-family: "Comic Sans MS", Inter, Arial, sans-serif;
 }
 
 .card-detailbutton {
@@ -60,6 +60,23 @@ main {
 .card-author::before
 {
     content: '~';
+}
+
+.card-editbuttons {
+    font-size: .8em;
+    margin-bottom: 8px;
+}
+
+.card-editbuttons a{
+    text-decoration: none;
+    color: #67e;
+}
+.card-editbuttons a:hover{
+    text-decoration: underline;
+}
+
+#btDeletePost {
+    color: hsl(0, 60%, 50%);
 }
 
 .send-form {

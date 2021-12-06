@@ -6,6 +6,9 @@
   
   <% if(post) { %>
   <div class="card bigger">
+    <div class="card-editbuttons">
+      <a href="#" id="btEditPost">Edit</a> &middot; <a href="#" id="btDeletePost">Delete</a>
+    </div>
     <div class="card-message">
       <%= post.message %> 
     </div>
