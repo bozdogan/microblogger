@@ -12,10 +12,10 @@ const defineRoutes = function(app) {
     });
     
     app.get("/post/:id", async (req, res) => {
-        const { id: postId } = req.params;
+        const postId = req.params.id;
         const post = await Post.findById(postId);
     
-        res.render("posts/viewsingle", { post });
+        res.render("posts/detailview", { post });
     });
 
     app.get("/send", (req, res) => {
@@ -31,10 +31,42 @@ const defineRoutes = function(app) {
             date_created: new Date()
         }).save();
         
-        if(post)
+        if(post) {
             res.redirect("/posts");
-        else
+        } else {
             res.redirect("/send");
+        }
+    });
+
+    app.post("/editpost/:id", async (req, res) => {
+        const postId = req.params.id;
+        
+        console.log(`UPDATE requested on post #${postId}`);
+        console.log("The post: " + await Post.findById(postId));
+        console.log("\nThe requested replacement:");
+        console.log(req.body);
+
+        const result = await Post.updateOne({_id: postId}, req.body);
+        if(result.modifiedCount > 0) {
+            console.log("Saved successfully.")
+        }
+
+        res.redirect('back');
+    });
+
+    app.get("/deletepost/:id", async (req, res) => {
+        const postId = req.params.id;
+
+        console.log(`DELETE requested on post #${postId}`);
+        console.log("The post: " + await Post.findById(postId));
+
+        const result = await Post.deleteOne({_id: postId});
+        if(result.deletedCount > 0) {
+            console.log("Deleted successfully.");
+            res.redirect('/posts');
+        } else {
+            res.redirect('back');
+        }
     });
 }
 

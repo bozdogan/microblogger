@@ -6,8 +6,9 @@
   
   <% if(post) { %>
   <div class="card bigger">
+    <span id="postIdLb" class="hidden"><%= post._id %></span>
     <div class="card-editbuttons">
-      <a href="#" id="btEditPost">Edit</a> &middot; <a href="#" id="btDeletePost">Delete</a>
+      <a href="#" id="editPostBt">Edit</a> &middot; <a href="#" id="deletePostBt">Delete</a>
     </div>
     <div class="card-message">
       <%= post.message %> 
@@ -17,5 +18,7 @@
   </div>
   <% } %>
 </main>
+
+<script src="/js/detailview.js"></script>
 
 <%- include("../partials/foot.ejs") %>

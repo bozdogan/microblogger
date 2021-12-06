@@ -15,6 +15,10 @@ main {
     margin: 0 auto;
 }
 
+.hidden {
+    display: none !important;
+}
+
 .card {
     position: relative;
     background: #eef;
@@ -75,8 +79,26 @@ main {
     text-decoration: underline;
 }
 
-#btDeletePost {
+#deletePostBt {
     color: hsl(0, 60%, 50%);
+}
+
+.card-message textarea {
+    box-sizing: border-box;
+    width: 100%;
+    resize: vertical;
+    font: normal 1em Inter, "Open Sans", sans-serif;
+    height: 3em;
+}
+
+#saveBt {
+    font-size: 1.2rem;
+    margin-left: auto;
+    display: block;
+}
+
+.card-message.on-edit {
+    margin-bottom: 1rem;
 }
 
 .send-form {
