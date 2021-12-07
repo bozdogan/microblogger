@@ -1,0 +1,33 @@
+
+.account-form {
+    width: 240px;
+    margin: 2rem auto;
+}
+
+.account-form input {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.account-form textarea {
+    resize: vertical;
+    font: normal 1rem Inter, "Open Sans", sans-serif;
+    height: 8rem;
+}
+
+.form-group.submit {
+    margin: 16px auto;
+    text-align: right;
+}
+
+.form-group.submit button {
+    font-size: 1rem;
+}
+
+.form-footer {
+    margin: 16px 0;
+    text-align: center;
+    font-size: .9em;
+}

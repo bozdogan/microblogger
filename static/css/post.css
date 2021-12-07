@@ -1,0 +1,106 @@
+.card {
+    position: relative;
+    background: #eef;
+    border-radius: 1rem;
+    margin: 16px 0;
+    padding: 16px;
+    text-align: right;
+    font-size: 1rem;
+}
+
+.card.bigger {
+    font-size: 1.25rem;
+}
+
+.card-message {
+    font-size: 1.2em;
+    text-align: left;
+}
+
+.card-detailbutton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.card-detailbutton a {
+    text-decoration: none;
+}
+.card-detailbutton a:hover {
+    text-decoration: underline;
+}
+
+.card-date {
+    color: lightslategrey;
+    font-style: italic;
+    font-size: .8em;
+}
+
+.card-author {
+    margin-left: 1rem;
+}
+
+.card-author::before
+{
+    content: '~';
+}
+
+.card-editbuttons {
+    font-size: .8em;
+    margin-bottom: 8px;
+}
+
+.card-editbuttons a{
+    text-decoration: none;
+    color: #67e;
+}
+.card-editbuttons a:hover{
+    text-decoration: underline;
+}
+
+#deletePostBt {
+    color: hsl(0, 60%, 50%);
+}
+
+.card-message textarea {
+    box-sizing: border-box;
+    width: 100%;
+    resize: vertical;
+    font: normal 1em Inter, "Open Sans", sans-serif;
+    height: 3em;
+}
+
+#saveBt {
+    font-size: 1.2rem;
+    margin-left: auto;
+    display: block;
+}
+
+.card-message.on-edit {
+    margin-bottom: 1rem;
+}
+
+.send-form {
+    width: 400px;
+}
+
+.send-form input[type=text], .send-form textarea {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+}
+
+.send-form textarea {
+    resize: vertical;
+    font: normal 1rem Inter, "Open Sans", sans-serif;
+    height: 8rem;
+}
+
+.form-group.submit {
+    text-align: right;
+}
+
+.form-group.submit button {
+    font-size: 1.2rem;
+}

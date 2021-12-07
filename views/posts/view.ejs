@@ -1,7 +1,10 @@
-<%- include("../partials/head.ejs", {title: "Post Detail"}) %>
+<%- include("../partials/head.ejs", {
+  title: "Post Detail",
+  stylesheet: "post"
+}) %>
 
 <main>
-  <h1>Single Post</h1>
+  <h1>Post Detail</h1>
   <%- include("../partials/nav.ejs") %>
   
   <% if(post) { %>
@@ -19,6 +22,6 @@
   <% } %>
 </main>
 
-<script src="/js/detailview.js"></script>
+<script src="/js/post_view.js"></script>
 
 <%- include("../partials/foot.ejs") %>

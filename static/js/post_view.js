@@ -9,9 +9,8 @@ const startEditMode = function() {
     if(!onEditMode) {
         onEditMode = true;
 
-        
         const messageEditForm = document.createElement("form");
-        messageEditForm.action = `/editpost/${postId}`;
+        messageEditForm.action = `/post/${postId}/update`;
         messageEditForm.method = "POST";
 
         const postEditTx = document.createElement("textarea");
@@ -46,6 +45,6 @@ editPostBt.addEventListener("click", e => {
 
 deletePostBt.addEventListener("click", e => {
     if(confirm("Are you sure you want to delete this post?")) {
-        window.location.href = `/deletepost/${postId}`;
+        window.location.href = `/post/${postId}/delete`;
     }
 });

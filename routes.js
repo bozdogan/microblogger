@@ -8,21 +8,21 @@ const defineRoutes = function(app) {
 
     app.get("/posts", async (req, res) => {
         const posts = await Post.find({});
-        res.render("posts/list", { posts });
+        res.render("posts/index", { posts });
     });
     
     app.get("/post/:id", async (req, res) => {
         const postId = req.params.id;
         const post = await Post.findById(postId);
     
-        res.render("posts/detailview", { post });
+        res.render("posts/view", { post });
     });
 
-    app.get("/send", (req, res) => {
+    app.get("/posts/send", (req, res) => {
         res.render("posts/send")
     });
 
-    app.post("/send", async (req, res) => {
+    app.post("/posts/send", async (req, res) => {
         console.log(req.body);
 
         const post = await new Post({
@@ -38,7 +38,7 @@ const defineRoutes = function(app) {
         }
     });
 
-    app.post("/editpost/:id", async (req, res) => {
+    app.post("/post/:id/update", async (req, res) => {
         const postId = req.params.id;
         
         console.log(`UPDATE requested on post #${postId}`);
@@ -54,7 +54,7 @@ const defineRoutes = function(app) {
         res.redirect('back');
     });
 
-    app.get("/deletepost/:id", async (req, res) => {
+    app.get("/post/:id/delete", async (req, res) => {
         const postId = req.params.id;
 
         console.log(`DELETE requested on post #${postId}`);
@@ -68,6 +68,25 @@ const defineRoutes = function(app) {
             res.redirect('back');
         }
     });
+
+    app.get("/login", async (req, res) => {
+        res.render("account/login");
+    });
+
+    app.post("/login/apply", async (req, res) => {
+        console.log("Login");
+        res.send("LOGIN APPLY PAGE");
+    });
+
+    app.get("/signup", async (req, res) => {
+        res.render("account/signup");
+    });
+
+    app.post("/signup/apply", async (req, res) => {
+        console.log("Login");
+        res.send("SIGNUP APPLY PAGE");
+    });
+
 }
 
 module.exports = defineRoutes;

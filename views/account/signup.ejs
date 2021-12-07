@@ -1,0 +1,38 @@
+<%- include("../partials/head.ejs", {
+  title: "Sign Up",
+  stylesheet: "account"
+}) %>
+
+<main>
+  <h1>Login</h1>
+  <%- include("../partials/nav.ejs") %>
+
+  <div class="account-form">
+    <form action="/signup/apply" method="POST">
+      <div class="form-group">
+        <label for="emailTx">Email:</label>
+        <input type="email" name="email" id="emailTx">
+      </div>
+      <div class="form-group">
+        <label for="usernameTx">Username:</label>
+        <input type="text" name="username" id="usernameTx">
+      </div>
+      <div class="form-group">
+        <label for="passwordTx">Password:</label>
+        <input type="password" name="password" id="passwordTx">
+      </div>
+      <div class="form-group submit">
+        <button type="submit">Sign Up</button>
+      </div>
+    </form>
+    
+    
+    <div class="form-footer">
+      Alreaty signed up? <br>
+      <a href="/login">Log In</a> instead
+    </div>
+  </div>
+  
+</main>
+
+<%- include("../partials/foot.ejs") %>
