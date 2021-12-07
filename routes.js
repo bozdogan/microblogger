@@ -1,3 +1,4 @@
+const Account = require("./models/account");
 const Post = require("./models/post");
 
 const defineRoutes = function(app) {
@@ -74,8 +75,16 @@ const defineRoutes = function(app) {
     });
 
     app.post("/login/apply", async (req, res) => {
-        console.log("Login");
-        res.send("LOGIN APPLY PAGE");
+        console.log("Login: ");
+        console.log(req.body);
+
+        const result = await Account.findOne(req.body);
+        console.log(result);
+        if(result) {
+            res.send("HELLO " + result.username);
+        } else {
+            res.redirect("/signup");
+        }
     });
 
     app.get("/signup", async (req, res) => {
@@ -83,10 +92,21 @@ const defineRoutes = function(app) {
     });
 
     app.post("/signup/apply", async (req, res) => {
-        console.log("Login");
-        res.send("SIGNUP APPLY PAGE");
-    });
+        console.log("Signup: ");
+        const data = {...req.body, date_created: new Date()};
+        console.log(data);
+        const account = new Account(data);
+        await account.validate();
 
+        const result = await account.save();
+        console.log(result);
+
+        if(result) {
+            res.redirect("/posts");
+        } else {
+            res.redirect("/signup");
+        }
+    });
 }
 
 module.exports = defineRoutes;
