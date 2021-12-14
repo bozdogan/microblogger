@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const accountSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+        required: [true, "Username cannot be blank"]
     },
     email: {
         type: String,
@@ -11,7 +11,7 @@ const accountSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: [true, "Password cannot be blank"]
     },
     date_created: {
         type: Date,
