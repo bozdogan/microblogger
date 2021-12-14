@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 
-const defineRoutes = require("./routes");
+const routes = require("./routes");
 
 mongoose.connect("mongodb://127.0.0.1:27017/wallposter")
 .then(() => {
@@ -20,7 +20,7 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "static")));
 app.use(express.urlencoded({extended: true}));
 
-defineRoutes(app);
+app.use("/", routes);
 
 app.listen(3001, () => {
     console.log("LISTENING ON 3001");

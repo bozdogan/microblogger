@@ -1,112 +1,127 @@
 const Account = require("./models/account");
 const Post = require("./models/post");
+const express = require("express");
+const bcrypt = require("bcrypt");
 
-const defineRoutes = function(app) {
+const NUM_BCRYPT_ROUNDS = 12;  // NOTE(bora): I'll just hard code it now.
+
+
+const router = express.Router();
+
+router.get("/", (req, res) => {
+    res.render("index")
+});
+
+router.get("/posts", async (req, res) => {
+    const posts = await Post.find({});
+    res.render("posts/index", { posts });
+});
+
+router.get("/post/:id", async (req, res) => {
+    const postId = req.params.id;
+    const post = await Post.findById(postId);
+
+    res.render("posts/view", { post });
+});
+
+router.get("/posts/send", (req, res) => {
+    res.render("posts/send")
+});
+
+router.post("/posts/send", async (req, res) => {
+    console.log(req.body);
+
+    const post = await new Post({
+        author: req.body.author,
+        message: req.body.message,
+        date_created: new Date()
+    }).save();
     
-    app.get("/", (req, res) => {
-        res.render("index")
-    });
+    if(post) {
+        res.redirect("/posts");
+    } else {
+        res.redirect("/send");
+    }
+});
 
-    app.get("/posts", async (req, res) => {
-        const posts = await Post.find({});
-        res.render("posts/index", { posts });
-    });
+router.post("/post/:id/update", async (req, res) => {
+    const postId = req.params.id;
     
-    app.get("/post/:id", async (req, res) => {
-        const postId = req.params.id;
-        const post = await Post.findById(postId);
-    
-        res.render("posts/view", { post });
-    });
+    console.log(`UPDATE requested on post #${postId}`);
+    console.log("The post: " + await Post.findById(postId));
+    console.log("\nThe requested replacement:");
+    console.log(req.body);
 
-    app.get("/posts/send", (req, res) => {
-        res.render("posts/send")
-    });
+    const result = await Post.updateOne({_id: postId}, req.body);
+    if(result.modifiedCount > 0) {
+        console.log("Saved successfully.")
+    }
 
-    app.post("/posts/send", async (req, res) => {
-        console.log(req.body);
+    res.redirect('back');
+});
 
-        const post = await new Post({
-            author: req.body.author,
-            message: req.body.message,
-            date_created: new Date()
-        }).save();
-        
-        if(post) {
-            res.redirect("/posts");
-        } else {
-            res.redirect("/send");
-        }
-    });
+router.get("/post/:id/delete", async (req, res) => {
+    const postId = req.params.id;
 
-    app.post("/post/:id/update", async (req, res) => {
-        const postId = req.params.id;
-        
-        console.log(`UPDATE requested on post #${postId}`);
-        console.log("The post: " + await Post.findById(postId));
-        console.log("\nThe requested replacement:");
-        console.log(req.body);
+    console.log(`DELETE requested on post #${postId}`);
+    console.log("The post: " + await Post.findById(postId));
 
-        const result = await Post.updateOne({_id: postId}, req.body);
-        if(result.modifiedCount > 0) {
-            console.log("Saved successfully.")
-        }
-
+    const result = await Post.deleteOne({_id: postId});
+    if(result.deletedCount > 0) {
+        console.log("Deleted successfully.");
+        res.redirect('/posts');
+    } else {
         res.redirect('back');
+    }
+});
+
+router.get("/login", async (req, res) => {
+    res.render("account/login");
+});
+
+router.post("/login/apply", async (req, res) => {
+    console.log("Login: ");
+    console.log(req.body);
+
+    const result = await Account.findOne({
+        username: req.body.username
     });
+    console.log(result);
 
-    app.get("/post/:id/delete", async (req, res) => {
-        const postId = req.params.id;
+    const checkSuccess = await bcrypt.compare(req.body.password, result.password);
+    console.log(checkSuccess);
 
-        console.log(`DELETE requested on post #${postId}`);
-        console.log("The post: " + await Post.findById(postId));
+    if(checkSuccess) {
+        res.send("HELLO " + result.username);
 
-        const result = await Post.deleteOne({_id: postId});
-        if(result.deletedCount > 0) {
-            console.log("Deleted successfully.");
-            res.redirect('/posts');
-        } else {
-            res.redirect('back');
-        }
-    });
+    } else {
+        res.redirect("/signup");
+    }
+});
 
-    app.get("/login", async (req, res) => {
-        res.render("account/login");
-    });
+router.get("/signup", async (req, res) => {
+    res.render("account/signup");
+});
 
-    app.post("/login/apply", async (req, res) => {
-        console.log("Login: ");
-        console.log(req.body);
+router.post("/signup/apply", async (req, res) => {
+    console.log("Signup: ");
+    const data = {
+        username: req.body.username,
+        email: req.body.email,
+        password: await bcrypt.hash(req.body.password, NUM_BCRYPT_ROUNDS),
+        date_created: new Date()};
+    console.log(data);
+    const account = new Account(data);
+    await account.validate();
 
-        const result = await Account.findOne(req.body);
-        console.log(result);
-        if(result) {
-            res.send("HELLO " + result.username);
-        } else {
-            res.redirect("/signup");
-        }
-    });
+    const result = await account.save();
+    console.log(result);
 
-    app.get("/signup", async (req, res) => {
-        res.render("account/signup");
-    });
+    if(result) {
+        res.redirect("/posts");
+    } else {
+        res.redirect("/signup");
+    }
+});
 
-    app.post("/signup/apply", async (req, res) => {
-        console.log("Signup: ");
-        const data = {...req.body, date_created: new Date()};
-        console.log(data);
-        const account = new Account(data);
-        await account.validate();
-
-        const result = await account.save();
-        console.log(result);
-
-        if(result) {
-            res.redirect("/posts");
-        } else {
-            res.redirect("/signup");
-        }
-    });
-}
-
-module.exports = defineRoutes;
+module.exports = router;

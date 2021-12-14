@@ -82,6 +82,7 @@
 
 .send-form {
     width: 400px;
+    margin: 0 auto;
 }
 
 .send-form input[type=text], .send-form textarea {

@@ -6,11 +6,10 @@
 <main>
   <h1>Send a Post</h1>
   <%- include("../partials/nav.ejs") %>
-
-
-  <p>Write your message below.</p>
-
+  
   <div class="send-form">
+    <p>Write your message below.</p>
+    
     <form action="/posts/send" method="POST">
       <div class="form-group">
         <label for="authorTx">Name:</label>
