@@ -8,27 +8,31 @@ const NUM_BCRYPT_ROUNDS = 12;  // NOTE(bora): I'll just hard code it now.
 const router = express.Router();
 
 router.get("/login", async (req, res) => {
+    if(req.session.userId) {
+        res.redirect("/posts");
+        return;
+    }
     res.render("account/login");
 });
 
 router.post("/login/apply", async (req, res) => {
-    console.log("Login: ");
-    console.log(req.body);
+    const { username, password } = req.body;
+    console.log("Login: " + username);
 
-    const result = await Account.findOne({
-        username: req.body.username
-    });
-    console.log(result);
+    const user = await Account.findOne({ username });
+    console.log(user);
 
-    const checkSuccess = await bcrypt.compare(req.body.password, result.password);
+    const checkSuccess = await bcrypt.compare(password, user.password);
     console.log(checkSuccess);
 
     if(checkSuccess) {
-        res.send("HELLO " + result.username);
-
+        req.session.userId = user._id;
+        console.log(`User '${user.username}' is logged in.`);
     } else {
-        res.redirect("/signup");
+        console.log(`Failed login attempt with user '${user.username}'.`);
     }
+
+    res.redirect("/login");
 });
 
 router.get("/signup", async (req, res) => {
@@ -36,13 +40,15 @@ router.get("/signup", async (req, res) => {
 });
 
 router.post("/signup/apply", async (req, res) => {
-    console.log("Signup: ");
+    console.log("Signup::");
     const data = {
         username: req.body.username,
         email: req.body.email,
         password: await bcrypt.hash(req.body.password, NUM_BCRYPT_ROUNDS),
-        date_created: new Date()};
+        date_created: new Date()
+    };
     console.log(data);
+    
     const account = new Account(data);
     await account.validate();
 

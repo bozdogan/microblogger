@@ -1,3 +1,4 @@
+const Account = require("../models/account");
 const Post = require("../models/post");
 const express = require("express");
 
@@ -6,7 +7,14 @@ const router = express.Router();
 
 router.get("/posts", async (req, res) => {
     const posts = await Post.find({});
-    res.render("posts/index", { posts });
+    const data = { posts };
+    if(req.session.userId) {
+        const user = await Account.findById(req.session.userId);
+        console.log("Session found. Username: " + user.username);
+        data.user = user;
+    }
+
+    res.render("posts/index", data);
 });
 
 router.get("/post/:id", async (req, res) => {

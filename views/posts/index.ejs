@@ -6,6 +6,9 @@
 <main>
   <h1>Posts on Your Wall</h1>
   <%- include("../partials/nav.ejs") %>
+  <% if(user) { %>
+  <div class="username">Logged in as <span class="username-tag"><%= user.username %></span></div>
+  <% } %>
   
   <%_ for(let it of posts) { _%>
   <div class="card">
