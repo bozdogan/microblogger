@@ -2,8 +2,6 @@ const Account = require("../models/account");
 const bcrypt = require("bcrypt");
 const express = require("express");
 
-const NUM_BCRYPT_ROUNDS = 12;  // NOTE(bora): I'll just hard code it now.
-
 
 const router = express.Router();
 
@@ -17,15 +15,10 @@ router.get("/login", async (req, res) => {
 
 router.post("/login/apply", async (req, res) => {
     const { username, password } = req.body;
-    console.log("Login: " + username);
+    console.log(`'${username}' logged in.`);
 
-    const user = await Account.findOne({ username });
-    console.log(user);
-
-    const checkSuccess = await bcrypt.compare(password, user.password);
-    console.log(checkSuccess);
-
-    if(checkSuccess) {
+    const user = await Account.findAndAuthenticate(username, password);
+    if(user) {
         req.session.userId = user._id;
         console.log(`User '${user.username}' is logged in.`);
     } else {
@@ -36,7 +29,11 @@ router.post("/login/apply", async (req, res) => {
 });
 
 router.get("/logout", async (req, res) => {
-    req.session.destroy();
+    if(req.session.userId) {
+        const user = await Account.findById(req.session.userId);
+        req.session.destroy();
+        console.log(`'${user.username}' logged out.`);
+    }
     res.redirect("/");
 });
 
@@ -45,22 +42,15 @@ router.get("/signup", async (req, res) => {
 });
 
 router.post("/signup/apply", async (req, res) => {
-    console.log("Signup::");
-    const data = {
-        username: req.body.username,
-        email: req.body.email,
-        password: await bcrypt.hash(req.body.password, NUM_BCRYPT_ROUNDS),
-        date_created: new Date()
-    };
-    console.log(data);
+    const { username, email, password } = req.body;
+    const date_created = new Date();
     
-    const account = new Account(data);
+    const account = new Account({ username, email, password, date_created });
     await account.validate();
-
+    
     const result = await account.save();
-    console.log(result);
-
     if(result) {
+        console.log(`New user signed up: ${username}`);
         res.redirect("/posts");
     } else {
         res.redirect("/signup");
