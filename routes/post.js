@@ -19,13 +19,20 @@ router.get("/posts", async (req, res) => {
 
 router.get("/post/:id", async (req, res) => {
     const postId = req.params.id;
-    const post = await Post.findById(postId);
+    const data = { post: await Post.findById(postId) };
+    if(req.session.userId) {
+        data.user = await Account.findById(req.session.userId);
+    }
 
-    res.render("posts/view", { post });
+    res.render("posts/view", data);
 });
 
-router.get("/posts/send", (req, res) => {
-    res.render("posts/send")
+router.get("/posts/send", async (req, res) => {
+    if(req.session.userId) {
+        res.render("posts/send", {user: await Account.findById(req.session.userId)});
+    } else {
+        res.redirect("/login");
+    }
 });
 
 router.post("/posts/send", async (req, res) => {

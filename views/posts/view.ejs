@@ -10,9 +10,12 @@
   <% if(post) { %>
   <div class="card bigger">
     <span id="postIdLb" class="hidden"><%= post._id %></span>
+    
+    <% if(locals.user && user.username === post.author) { %> 
     <div class="card-editbuttons">
       <a href="#" id="editPostBt">Edit</a> &middot; <a href="#" id="deletePostBt">Delete</a>
     </div>
+    <% } %> 
     <div class="card-message">
       <%= post.message %> 
     </div>
