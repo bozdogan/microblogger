@@ -6,8 +6,12 @@
 <main>
   <h1>Posts on Your Wall</h1>
   <%- include("../partials/nav.ejs") %>
-  <% if(user) { %>
-  <div class="username">Logged in as <span class="username-tag"><%= user.username %></span></div>
+  <% if(locals.user) { %>
+  <div class="username">
+    Logged in as <span class="username-tag"><%= user.username %></span>
+    &middot;
+    <a href="/logout">Log out</a>
+  </div>
   <% } %>
   
   <%_ for(let it of posts) { _%>

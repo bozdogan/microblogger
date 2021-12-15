@@ -35,6 +35,11 @@ router.post("/login/apply", async (req, res) => {
     res.redirect("/login");
 });
 
+router.get("/logout", async (req, res) => {
+    req.session.destroy();
+    res.redirect("/");
+});
+
 router.get("/signup", async (req, res) => {
     res.render("account/signup");
 });
