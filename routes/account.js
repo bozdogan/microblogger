@@ -15,14 +15,15 @@ router.get("/login", async (req, res) => {
 
 router.post("/login/apply", async (req, res) => {
     const { username, password } = req.body;
-    console.log(`'${username}' logged in.`);
+    console.log(`'${username}' is logging in...`);
 
     const user = await Account.findAndAuthenticate(username, password);
     if(user) {
+        console.log(user);
         req.session.userId = user._id;
         console.log(`User '${user.username}' is logged in.`);
     } else {
-        console.log(`Failed login attempt with user '${user.username}'.`);
+        console.log(`Failed login attempt with username '${username}'.`);
     }
 
     res.redirect("/login");

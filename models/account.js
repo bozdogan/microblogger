@@ -26,8 +26,12 @@ const accountSchema = new mongoose.Schema({
 accountSchema.statics.findAndAuthenticate =
 async function(username, password) {
     const user = await this.findOne({ username });
-    const isValid = await bcrypt.compare(password, user.password);
-    return isValid ? user : null;
+    if(user) {
+        const isValid = await bcrypt.compare(password, user.password);
+        return isValid ? user : false;
+    } else {
+        return null;
+    }
 }
 
 // NOTE(bora): Mongoose middleware to hash passwords on save
