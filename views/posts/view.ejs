@@ -19,13 +19,13 @@
         <span id="postIdLb" class="hidden"><%= post._id %></span>
         
   <% if(locals.user && user.username === post.author) { %> 
-        <div class="card-editbuttons ms-auto">
+        <div class="card-editbuttons ms-auto mt-2">
           <a class="btn btn-sm btn-outline-primary" href="#" id="editPostBt">Edit</a>
-          <a class="btn btn-sm btn-outline-danger" href="#" id="deletePostBt">Delete</a>
+          <a class="btn btn-sm btn-outline-danger ms-1" href="#" id="deletePostBt">Delete</a>
         </div>
   <% } %>
 
-        <div class="card-body">
+        <div class="card-body pt-2 pt-sm-3">
           <div class="fs-4 lead card-message">
             <%= post.message %> 
           </div>
