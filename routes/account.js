@@ -39,7 +39,11 @@ router.get("/logout", async (req, res) => {
 });
 
 router.get("/signup", async (req, res) => {
-    res.render("account/signup");
+    if(req.session.userId) {
+        res.redirect("/posts");
+    } else {
+        res.render("account/signup");
+    }
 });
 
 router.post("/signup/apply", async (req, res) => {
@@ -52,6 +56,7 @@ router.post("/signup/apply", async (req, res) => {
     const result = await account.save();
     if(result) {
         console.log(`New user signed up: ${username}`);
+        req.session.userId = account._id;
         res.redirect("/posts");
     } else {
         res.redirect("/signup");
