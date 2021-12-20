@@ -1,4 +1,28 @@
-.card {
+.post-list,
+.send-form {
+    max-width: 720px;
+}
+
+.card-detailbutton {
+    top: 8px;
+    right: 8px;
+}
+
+.card-author::before
+{
+    content: '~';
+}
+
+a.logout {
+    text-decoration: none;
+}
+
+a.logout:hover {
+    text-decoration: underline;
+}
+
+
+/* .card {
     position: relative;
     background: #eef;
     border-radius: 1rem;
@@ -31,19 +55,10 @@
 }
 
 .card-date {
-    color: lightslategrey;
     font-style: italic;
     font-size: .8em;
 }
 
-.card-author {
-    margin-left: 1rem;
-}
-
-.card-author::before
-{
-    content: '~';
-}
 
 .card-editbuttons {
     font-size: .8em;
@@ -104,4 +119,4 @@
 
 .form-group.submit button {
     font-size: 1.2rem;
-}
+} */

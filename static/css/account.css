@@ -3,7 +3,7 @@
   width: 100%;
   max-width: 330px;
   padding: 15px;
-  margin: 3rem auto;
+  margin: auto;
 }
 
 /* NOTE(bora): Fix the glow effect staying behind the other input box. */
