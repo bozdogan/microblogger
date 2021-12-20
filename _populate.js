@@ -30,7 +30,7 @@ const populateDatabase = async function() {
                 date_created: new Date(2021, 11, 29, 13, 45)
             },
             {
-                message: "you suck bc you are male",
+                message: "you suck bc you eat meat",
                 author: "Karen",
                 date_created: new Date(2021, 10, 03, 11, 56)
             },
@@ -40,7 +40,7 @@ const populateDatabase = async function() {
                 date_created: new Date(2021, 10, 03, 12, 01)
             },
             {
-                message: "This is good!",
+                message: "THİS İS GOOD.",
                 author: "soyturco",
                 date_created: new Date(2021, 12, 05, 17, 42)
             },
