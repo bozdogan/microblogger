@@ -1,6 +1,15 @@
 <%- include("partials/head.ejs", {title: "Wallposter"}) %>
 
-<h1>Wallposter</h1>
-<%- include("partials/nav.ejs") %> 
+<main class="container-fluid">
+  <div class="row mb-3">
+    <%- include("partials/nav.ejs") %> 
+  </div>
+
+  <div class="row">
+    <h1 class="display-4">Wallposter</h1>
+    <p class="lead text-center">Share your opinion with the world.</p>
+    <p class="text-center"><a class="btn btn-outline-primary" href="/signup" title="Sign up to Wallposter">Get started now</a></p>
+  </div>
+</main>
 
 <%- include("partials/foot.ejs") %>

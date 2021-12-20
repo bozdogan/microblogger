@@ -3,27 +3,48 @@
   stylesheet: "post"
 }) %>
 
-<main>
-  <h1>Posts on Your Wall</h1>
-  <%- include("../partials/nav.ejs") %>
-  <% if(locals.user) { %>
-  <div class="username">
-    Logged in as <span class="username-tag"><%= user.username %></span>
-    &middot;
-    <a href="/logout">Log out</a>
+<main class="container-fluid">
+  <div class="row mb-5">
+    <%- include("../partials/nav.ejs") %>
   </div>
-  <% } %>
-  
-  <%_ for(let it of posts) { _%>
-  <div class="card">
-    <div class="card-detailbutton"><a href="/post/<%= it._id %>">&para;</a></a></div>
-    <div class="card-message">
-      <%= it.message %> 
+
+  <div class="row">
+    <h1>Posts on the Wall</h1>
+  </div>
+
+  <div class="container post-list">
+<% if(locals.user) { %>
+    <div class="row mb-4">
+      <div class="username">
+        Logged in as <span class="username-tag"><%= user.username %></span>
+        &middot;
+        <a class="text-muted small fst-italic logout" href="/logout" title="Log Out">
+          Log out</a>
+      </div>
     </div>
-    <span class="card-date"><%= it.date_created.toLocaleString() %></span>
-    <span class="card-author"><%= it.author %></span>
+<% } %>
+
+<%_ for(let it of posts) { _%>
+    <div class="row mb-3">
+      <div class="card bg-light">
+        <div class="card-detailbutton position-absolute"><a href="/post/<%= it._id %>">&para;</a></a></div>
+        
+        <div class="card-body pb-0">
+          <p class="fs-5 card-message">
+            <%= it.message %> 
+          </p>
+        </div>
+
+        <div class="ms-auto py-2">
+          <span class="text-muted card-date"><%= it.date_created.toLocaleString() %></span>
+          <span class="card-author"><%= it.author %></span>
+        </div>
+
+      </div>
+    </div>
+<%_ } _%>
   </div>
-  <%_ } _%>
+  
 </main>
 
 <%- include("../partials/foot.ejs") %>

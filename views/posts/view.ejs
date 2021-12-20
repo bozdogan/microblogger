@@ -3,26 +3,42 @@
   stylesheet: "post"
 }) %>
 
-<main>
-  <h1>Post Detail</h1>
-  <%- include("../partials/nav.ejs") %>
-  
-  <% if(post) { %>
-  <div class="card bigger">
-    <span id="postIdLb" class="hidden"><%= post._id %></span>
-    
-    <% if(locals.user && user.username === post.author) { %> 
-    <div class="card-editbuttons">
-      <a href="#" id="editPostBt">Edit</a> &middot; <a href="#" id="deletePostBt">Delete</a>
-    </div>
-    <% } %> 
-    <div class="card-message">
-      <%= post.message %> 
-    </div>
-    <span class="card-date"><%= post.date_created.toLocaleString() %></span>
-    <span class="card-author"><%= post.author %></span>
+<main class="container-fluid">
+  <div class="row mb-5">
+    <%- include("../partials/nav.ejs") %>
   </div>
+  
+  <div class="row">
+    <h1>Post Detail</h1>
+  </div>
+
+  <div class="container post-list">
+    <div class="row">
+<% if(post) { %>
+      <div class="card bg-light">
+        <span id="postIdLb" class="hidden"><%= post._id %></span>
+        
+  <% if(locals.user && user.username === post.author) { %> 
+        <div class="card-editbuttons ms-auto">
+          <a class="btn btn-sm btn-outline-primary" href="#" id="editPostBt">Edit</a>
+          <a class="btn btn-sm btn-outline-danger" href="#" id="deletePostBt">Delete</a>
+        </div>
   <% } %>
+
+        <div class="card-body">
+          <div class="fs-4 lead card-message">
+            <%= post.message %> 
+          </div>
+        </div>
+
+        <div class="ms-auto py-2">
+          <small class="text-muted fs-fst-italic card-date"><%= post.date_created.toLocaleString() %></small>
+          <span class="card-author ms-3"><%= post.author %></span>
+        </div>
+      </div>
+<% } %>
+    </div>
+  </div>
 </main>
 
 <script src="/js/post_view.js"></script>
