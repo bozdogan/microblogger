@@ -1,33 +1,43 @@
 
 .account-form {
-    width: 240px;
-    margin: 2rem auto;
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 3rem auto;
 }
 
-.account-form input {
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
-    margin-bottom: 8px;
+/* NOTE(bora): Fix the glow effect staying behind the other input box. */
+.account-form .form-floating:focus-within {
+  z-index: 2;
 }
 
-.account-form textarea {
-    resize: vertical;
-    font: normal 1rem Inter, "Open Sans", sans-serif;
-    height: 8rem;
+.form-login input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
-.form-group.submit {
-    margin: 16px auto;
-    text-align: right;
+.form-login input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
-.form-group.submit button {
-    font-size: 1rem;
+
+.form-signup input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
-.form-footer {
-    margin: 16px 0;
-    text-align: center;
-    font-size: .9em;
+.form-signup input[type="text"] {
+  margin-top: -1px;
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+
+.form-signup input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

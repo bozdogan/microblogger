@@ -3,27 +3,38 @@
   stylesheet: "post"
 }) %>
 
-<main>
-  <h1>Posts on Your Wall</h1>
-  <%- include("../partials/nav.ejs") %>
-  <% if(locals.user) { %>
-  <div class="username">
-    Logged in as <span class="username-tag"><%= user.username %></span>
-    &middot;
-    <a href="/logout">Log out</a>
+<main class="container">
+  <div class="row">
+    <h1>Posts on Your Wall</h1>
   </div>
-  <% } %>
-  
+  <div class="row">
+    <%- include("../partials/nav.ejs") %>
+  </div>
+
+
+  <div class="row">
+    <% if(locals.user) { %>
+      <div class="username">
+        Logged in as <span class="username-tag"><%= user.username %></span>
+        &middot;
+        <a href="/logout">Log out</a>
+      </div>
+    <% } %>
+  </div>
+
   <%_ for(let it of posts) { _%>
-  <div class="card">
-    <div class="card-detailbutton"><a href="/post/<%= it._id %>">&para;</a></a></div>
-    <div class="card-message">
-      <%= it.message %> 
+    <div class="row">
+      <div class="card">
+        <div class="card-detailbutton"><a href="/post/<%= it._id %>">&para;</a></a></div>
+        <div class="card-message">
+          <%= it.message %> 
+        </div>
+        <span class="card-date"><%= it.date_created.toLocaleString() %></span>
+        <span class="card-author"><%= it.author %></span>
+      </div>
     </div>
-    <span class="card-date"><%= it.date_created.toLocaleString() %></span>
-    <span class="card-author"><%= it.author %></span>
-  </div>
   <%_ } _%>
+  
 </main>
 
 <%- include("../partials/foot.ejs") %>

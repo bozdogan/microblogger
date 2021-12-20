@@ -3,30 +3,32 @@
   stylesheet: "account"
 }) %>
 
-<main>
-  <h1>Log In</h1>
-  <%- include("../partials/nav.ejs") %>
+<div class="container-fluid">
+  <div class="row">
+    <%- include("../partials/nav.ejs") %> 
+  </div>
 
-  <div class="account-form">
-    <form action="/login/apply" method="POST">
-      <div class="form-group">
-        <label for="usernameTx">Username:</label>
-        <input type="text" name="username" id="usernameTx">
+  <main class="row text-center account-form form-login">
+    <form class="mb-5" action="/login/apply" method="POST">
+      <h1 class="h3 mb-3 fw-normal">Log In</h1>
+
+      <div class="form-floating">
+        <input type="text" class="form-control" name="username" id="usernameTx" placeholder="Username">
+        <label for="usernameTx">Username</label>
       </div>
-      <div class="form-group">
-        <label for="passwordTx">Password:</label>
-        <input type="password" name="password" id="passwordTx">
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" name="password" id="passwordTx" placeholder="Password">
+        <label for="passwordTx">Password</label>
       </div>
-      <div class="form-group">
-        <button type="submit">Log In</button>
-      </div>
+      
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Log In</button>
     </form>
     
-    <div class="form-footer">
+    <p class="text-muted">
       Don't have an account? <br>
       <a href="/signup">Sign Up</a> instead
-    </div>
-  </div>
-</main>
+    </p>
+  </main>
+</div>
 
 <%- include("../partials/foot.ejs") %>
