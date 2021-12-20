@@ -7,8 +7,10 @@ body {
     background-color: #f1f1f1;
 }
 
+.navbar-brand .brand,
 h1, h2, h3, h4, h5 {
-    font-family: 'Stardos Stencil', "PT Serif", Cambria, serif;
+    font-family: "Stardos Stencil", "PT Serif", Cambria, serif;
+    font-weight: bold;
 }
 
 .hidden {
@@ -23,13 +25,19 @@ h1 {
 .navbar-brand {
     position: absolute;
     top: 8px;
+    background: no-repeat top left/3rem url(/res/wp-brand.png);
 }
 
-.navbar-brand img {
-    height: 2rem;
-    vertical-align: top;
+.navbar-brand .brand {
+    padding-left: 3.25rem;
+    font-weight: normal;
 }
 
-main > h1:first-child {
+.navbar .container-fluid{
     margin-bottom: .5rem;
+}
+
+
+.navbar-brand .brand {
+    color: #ddd;
 }
