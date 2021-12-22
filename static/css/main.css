@@ -7,9 +7,8 @@ body {
     background-color: #f1f1f1;
 }
 
-.navbar-brand .brand,
 h1, h2, h3, h4, h5 {
-    font-family: "Stardos Stencil", "PT Serif", Cambria, serif;
+    font-family: "Merriweather", "PT Serif", Cambria, serif;
     font-weight: bold;
 }
 
@@ -26,6 +25,10 @@ h1 {
     position: absolute;
     top: 8px;
     background: no-repeat top left/3rem url(/res/wp-brand.png);
+}
+
+.brand {
+    font-family: "Stardos Stencil";
 }
 
 .navbar-brand .brand {
