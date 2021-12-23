@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const session = require("express-session");
+const methodOverride = require("method-override");
 
 const accountRoutes = require("./routes/account");
 const indexRoutes = require("./routes/index");
@@ -24,6 +25,7 @@ app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "static")));
 app.use(express.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
 app.use(session({
     secret: "itsnotasecret",
     resave: false,

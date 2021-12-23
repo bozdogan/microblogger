@@ -13,19 +13,10 @@
   </div>
   
   <div class="row send-form mx-auto">
-    <p class="text-muted fst-italic text-center">Write your message below.</p>
+    <p class="text-muted fst-italic">Write your message below.</p>
     
-    <form action="/posts/send" method="POST">
-      <div class="form-group mb-3">
-        <label for="authorTx">Name:</label>
-        <input class="form-control" type="text" name="author" id="authorTx">
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="messageTx">Message:</label>
-        <textarea class="form-control" name="message" id="messageTx" rows="3"></textarea>
-      </div>
-
+    <form action="/posts" method="POST">
+      <textarea class="form-control mb-3" name="message" id="messageTx" rows="3"></textarea>
       <button class="btn btn-primary d-block ms-auto" type="submit" id="submitBt">Send</button>
     </form>
   </div>

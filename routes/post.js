@@ -17,7 +17,35 @@ router.get("/posts", async (req, res) => {
     res.render("posts/index", data);
 });
 
-router.get("/post/:id", async (req, res) => {
+router.get("/posts/new", async (req, res) => {
+    if(req.session.userId) {
+        res.render("posts/send", {user: await Account.findById(req.session.userId)});
+    } else {
+        res.redirect("/login");
+    }
+});
+
+router.post("/posts", async (req, res) => {
+    console.log(req.body);
+    if(req.session.userId) {
+        const user = await Account.findById(req.session.userId);
+        const post = await new Post({
+            author: user.username,
+            message: req.body.message,
+            date_created: new Date()
+        }).save();
+        
+        if(post) {
+            res.redirect("/posts");
+        } else {
+            res.redirect("/posts/new");
+        }
+    } else {
+        res.redirect("/login");
+    }
+});
+
+router.get("/posts/:id", async (req, res) => {
     const postId = req.params.id;
     const data = { post: await Post.findById(postId) };
     if(req.session.userId) {
@@ -27,31 +55,21 @@ router.get("/post/:id", async (req, res) => {
     res.render("posts/view", data);
 });
 
-router.get("/posts/send", async (req, res) => {
+router.get("/posts/:id/edit", async (req, res) => {
+    const postId = req.params.id;
     if(req.session.userId) {
-        res.render("posts/send", {user: await Account.findById(req.session.userId)});
-    } else {
-        res.redirect("/login");
+        const post = await Post.findById(postId);
+        const activeUser = await Account.findById(req.session.userId);
+        if(activeUser.username === post.author) {
+            res.render("posts/edit", { post });
+            return;
+        }
     }
+
+    res.send("<!DOCTYPE html><head><title>Forbidden</title></head><body><h1>You cannot edit this post</h1></body></html>");
 });
 
-router.post("/posts/send", async (req, res) => {
-    console.log(req.body);
-
-    const post = await new Post({
-        author: req.body.author,
-        message: req.body.message,
-        date_created: new Date()
-    }).save();
-    
-    if(post) {
-        res.redirect("/posts");
-    } else {
-        res.redirect("/send");
-    }
-});
-
-router.post("/post/:id/update", async (req, res) => {
+router.patch("/posts/:id", async (req, res) => {
     const postId = req.params.id;
     
     console.log(`UPDATE requested on post #${postId}`);
@@ -64,10 +82,10 @@ router.post("/post/:id/update", async (req, res) => {
         console.log("Saved successfully.")
     }
 
-    res.redirect('back');
+    res.redirect('/posts');
 });
 
-router.get("/post/:id/delete", async (req, res) => {
+router.delete("/posts/:id", async (req, res) => {
     const postId = req.params.id;
 
     console.log(`DELETE requested on post #${postId}`);

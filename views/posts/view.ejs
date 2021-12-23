@@ -19,9 +19,11 @@
         <span id="postIdLb" class="hidden"><%= post._id %></span>
         
   <% if(locals.user && user.username === post.author) { %> 
-        <div class="card-editbuttons ms-auto mt-2">
-          <a class="btn btn-sm btn-outline-primary" href="#" id="editPostBt">Edit</a>
-          <a class="btn btn-sm btn-outline-danger ms-1" href="#" id="deletePostBt">Delete</a>
+        <div class="ms-auto mt-2">
+          <a class="btn btn-sm btn-outline-primary" href="/posts/<%= post._id %>/edit" id="editPostBt">Edit</a>
+          <form class="d-inline" action="/posts/<%= post._id %>/?_method=DELETE" method="POST">
+            <button class="btn btn-sm btn-outline-danger ms-1" id="deletePostBt">Delete</a>
+          </form>
         </div>
   <% } %>
 
@@ -41,6 +43,6 @@
   </div>
 </main>
 
-<script src="/js/post_view.js"></script>
+<!-- <script src="/js/post_view.js"></script> -->
 
 <%- include("../partials/foot.ejs") %>
