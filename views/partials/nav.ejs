@@ -21,7 +21,7 @@
 <% if(!locals.user) { %>
       <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
         <li class="nav-item text-end">
-          <a class="nav-link <% if(locals.activePage === 'login') { %>active<% } %>" href="/login">Login</a>
+          <a class="nav-link <% if(locals.activePage === 'login') { %>active<% } %>" href="/account/login">Login</a>
         </li>
       </ul>
 <% } else { %>
@@ -32,7 +32,7 @@
             <span class="text-info"><%= user.username %></span>
           </div>
           <div class="">
-            <a class="text-danger logout" href="/logout" title="Log Out">
+            <a class="text-danger logout" href="/account/logout" title="Log Out">
               Log out
             </a>
           </div>

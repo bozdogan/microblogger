@@ -5,32 +5,24 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/posts", async (req, res) => {
+router.get("/", async (req, res) => {
     const posts = await Post.find({});
-    const data = { posts };
-    if(req.session.userId) {
-        const user = await Account.findById(req.session.userId);
-        console.log("Session found. Username: " + user.username);
-        data.user = user;
-    }
-
-    res.render("posts/index", data);
+    res.render("posts/index", { posts, user: req.activeAccount });
 });
 
-router.get("/posts/new", async (req, res) => {
+router.get("/new", async (req, res) => {
     if(req.session.userId) {
-        res.render("posts/send", {user: await Account.findById(req.session.userId)});
+        res.render("posts/send", {user: req.activeAccount});
     } else {
-        res.redirect("/login");
+        res.redirect("/account/login");
     }
 });
 
-router.post("/posts", async (req, res) => {
+router.post("/", async (req, res) => {
     console.log(req.body);
     if(req.session.userId) {
-        const user = await Account.findById(req.session.userId);
         const post = await new Post({
-            author: user.username,
+            author: req.activeAccount.username,
             message: req.body.message,
             date_created: new Date()
         }).save();
@@ -38,38 +30,40 @@ router.post("/posts", async (req, res) => {
         if(post) {
             res.redirect("/posts");
         } else {
+            // TODO(bora): Tell user that the post didn't make it.
             res.redirect("/posts/new");
         }
     } else {
-        res.redirect("/login");
+        res.redirect("/account/login");
     }
 });
 
-router.get("/posts/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     const postId = req.params.id;
     const data = { post: await Post.findById(postId) };
     if(req.session.userId) {
-        data.user = await Account.findById(req.session.userId);
+        data.user = req.activeAccount;
     }
 
     res.render("posts/view", data);
 });
 
-router.get("/posts/:id/edit", async (req, res) => {
+router.get("/:id/edit", async (req, res) => {
     const postId = req.params.id;
     if(req.session.userId) {
         const post = await Post.findById(postId);
-        const activeUser = await Account.findById(req.session.userId);
+        const activeUser = req.activeAccount;
         if(activeUser.username === post.author) {
             res.render("posts/edit", { post });
             return;
         }
     }
 
+    // TODO(bora): Turn that to a template.
     res.send("<!DOCTYPE html><head><title>Forbidden</title></head><body><h1>You cannot edit this post</h1></body></html>");
 });
 
-router.patch("/posts/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
     const postId = req.params.id;
     
     console.log(`UPDATE requested on post #${postId}`);
@@ -85,7 +79,7 @@ router.patch("/posts/:id", async (req, res) => {
     res.redirect('/posts');
 });
 
-router.delete("/posts/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     const postId = req.params.id;
 
     console.log(`DELETE requested on post #${postId}`);

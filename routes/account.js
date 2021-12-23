@@ -26,12 +26,12 @@ router.post("/login/apply", async (req, res) => {
         console.log(`Failed login attempt with username '${username}'.`);
     }
 
-    res.redirect("/login");
+    res.redirect("/account/login");
 });
 
 router.get("/logout", async (req, res) => {
     if(req.session.userId) {
-        const user = await Account.findById(req.session.userId);
+        const user = req.activeAccount;
         req.session.destroy();
         console.log(`'${user.username}' logged out.`);
     }
@@ -57,9 +57,9 @@ router.post("/signup/apply", async (req, res) => {
     if(result) {
         console.log(`New user signed up: ${username}`);
         req.session.userId = account._id;
-        res.redirect("/posts");
+        res.redirect("/account/posts");
     } else {
-        res.redirect("/signup");
+        res.redirect("/account/signup");
     }
 });
 

@@ -4,6 +4,8 @@ const path = require("path");
 const session = require("express-session");
 const methodOverride = require("method-override");
 
+const detectSession = require("./middlewares/detect-session");
+
 const accountRoutes = require("./routes/account");
 const indexRoutes = require("./routes/index");
 const postRoutes = require("./routes/post");
@@ -32,19 +34,11 @@ app.use(session({
     saveUninitialized: false
 }));
 
-app.use(async (req, res, next) => {
-    // TODO(bora): This is messy. Tidy this up!
-    if(req.session.userId) {
-        req.activeAccount = await require("./models/account").findById(req.session.userId);
-        console.log(`Active user: ${req.activeAccount.username} (${req.session.userId})`);
-    }
-    
-    next();
-});
+app.use(detectSession);
 
 app.use("/", indexRoutes);
-app.use("/", postRoutes);
-app.use("/", accountRoutes);
+app.use("/posts", postRoutes);
+app.use("/account", accountRoutes);
 
 app.listen(3001, () => {
     console.log("LISTENING ON 3001");

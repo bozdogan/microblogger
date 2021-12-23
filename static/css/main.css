@@ -21,32 +21,21 @@ h1 {
     margin-bottom: 2rem;
 }
 
-.navbar-brand {
-    /* position: absolute;
-    top: 8px; */
-    background: no-repeat top left/3rem url(/res/wp-brand.png);
-}
-
-.navbar-right {
-    /* position: absolute;
-    top: .5rem; */
-    right: 1rem;
-}
-
 .brand {
     font-family: "Stardos Stencil";
-}
-
-.navbar-brand .brand {
-    padding-left: 3.25rem;
-    font-weight: normal;
 }
 
 .navbar .container-fluid{
     margin-bottom: .5rem;
 }
 
+.navbar-brand {
+    background: no-repeat top left/3rem url(/res/wp-brand.png);
+}
+
 .navbar-brand .brand {
+    padding-left: 3.25rem;
+    font-weight: normal;
     color: #ddd;
 }
 
