@@ -27,6 +27,12 @@ h1 {
     background: no-repeat top left/3rem url(/res/wp-brand.png);
 }
 
+.navbar-right {
+    position: absolute;
+    top: .5rem;
+    right: 1rem;
+}
+
 .brand {
     font-family: "Stardos Stencil";
 }
