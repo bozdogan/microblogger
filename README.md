@@ -37,9 +37,9 @@ Wallposter is live on [TO BE ADDED](#)
 ![View Single Post](_res_README/post-detail.png)
 
 
-
-<img src="_res_README/mobile_post-new.jpg" style="width: 30vw; text-align: center">
-
+<div align="center">
+    <img src="_res_README/mobile_post-new.jpg" style="width: 30%">
+</div>
 
 
 ## Licence
