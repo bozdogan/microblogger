@@ -22,38 +22,48 @@ const populateDatabase = async function() {
             {
                 message: "tbh, I believe Zack Snyder did nothing wrong. it's your own corruptness to say mean things to him!",
                 author: "catmobile69",
-                date_created: new Date(2021, 11, 29, 13, 22)
+                date_created: new Date(2021, 10, 29, 13, 22)
             },
             {
                 message: "yes, he isn't the hero we need. but neither is he the hero we deserve",
                 author: "eaglewarriorman",
-                date_created: new Date(2021, 11, 29, 13, 45)
+                date_created: new Date(2021, 10, 29, 13, 45)
             },
             {
-                message: "you suck bc you eat meat",
+                message: "this is a wonderful day",
                 author: "Karen",
-                date_created: new Date(2021, 10, 03, 11, 56)
+                date_created: new Date(2021, 09, 03, 11, 56)
             },
             {
-                message: "oh shut up karen you suck big time!",
+                message: "yeah Karen, you are absolutely right!",
                 author: "imieinazwisko",
-                date_created: new Date(2021, 10, 03, 12, 01)
+                date_created: new Date(2021, 09, 03, 12, 01)
             },
             {
                 message: "THİS İS GOOD.",
                 author: "soyturco",
-                date_created: new Date(2021, 12, 05, 17, 42)
+                date_created: new Date(2021, 10, 05, 17, 42)
             },
             {
                 message: "Öncellikle kestane balının diyarı Zonguldak Gökçebey, Hazanoğlu köyünden tüm dünyaya selam olsun.",
                 author: "newcomer",
-                date_created: new Date(2021, 12, 06, 15, 31, 02)
+                date_created: new Date(2021, 10, 06, 15, 31, 02)
             },
             {
                 message: "My unpopular opinion: The Last Jedi is the BEST MOVIE EVA!!1!",
                 author: "author",
-                date_created: new Date(2021, 12, 06, 13, 34, 31)
+                date_created: new Date(2021, 11, 06, 13, 34, 31)
             },
+            {
+                message: "Die with memories but not dreams",
+                author: "Gül",
+                date_created: new Date("2021-12-23T13:29:55.788Z")
+            },
+            {
+                message: "just setting up my wall pstr",
+                author: "bora",
+                date_created: new Date("2021-12-23T13:35:49.534Z")
+            }
         ]);
         console.log("Posts inserted.");
 
@@ -62,13 +72,13 @@ const populateDatabase = async function() {
                 username: "root",
                 email: "root@tardis.who",
                 password: "$2b$12$Thsf1qC2cbtbYl53K0uS6.1hQK6THQ122dZ2JzI.6vy1yI5G/N6f6",
-                date_created: new Date(2021, 12, 14, 22, 36, 43)
+                date_created: new Date(2021, 11, 14, 22, 36, 43)
             },
             {
                 username: "bora",
                 email: "b@ozdogan.org",
                 password: "$2b$12$zLjQhOCOWtB52t28Xcj0yuHVekk3DI2Gytng/Kicc/wm27fUyZ/fq",
-                date_created: new Date(2021, 12, 14, 22, 38, 25)
+                date_created: new Date(2021, 11, 14, 22, 38, 25)
             },
             {
                 username: "catmobile69",
@@ -111,6 +121,12 @@ const populateDatabase = async function() {
                 email: "N/A",
                 password: "$2b$12$fsZNrGmvfPzGLxHTBh.zxu30nDfjbbGToY0WYINEP1tpaaptZLDpm",
                 date_created: "2021-11-23"
+            },
+            {
+                username: "Gül",
+                email: "yumurcak@gmail.com",
+                password: "$2b$12$ckX2YxgZFhczhsmIECJ.Xuxh09Tbj3A7Tznkiv0QqF8Uak2koV8/i",
+                date_created: new Date("2021-12-23T13:26:14.495Z")
             },
         ]);
         console.log("Accounts added.");  

@@ -8,20 +8,24 @@
     <%- include("../partials/nav.ejs", {activePage: "login"}) %> 
   </div>
 
-  <main class="row text-center account-form form-login">
-    <form class="mb-5" action="/account/login/apply" method="POST">
-      <h1 class="h3 mb-3 fw-normal">Log In</h1>
+  <div class="row">
+    <h1 class="h3 mb-3 fw-normal">Log In</h1>
+  </div>
 
+  <main class="row text-center account-form form-login">
+    <form action="/account/login/apply" method="POST">
       <div class="form-floating">
-        <input type="text" class="form-control" name="username" id="usernameTx" placeholder="Username">
+        <input type="text" class="form-control" name="username" id="usernameTx"
+            placeholder="Username" autocorrect="off" autocapitalize="none">
         <label for="usernameTx">Username</label>
       </div>
+
       <div class="form-floating mb-3">
         <input type="password" class="form-control" name="password" id="passwordTx" placeholder="Password">
         <label for="passwordTx">Password</label>
       </div>
       
-      <button class="w-100 btn btn-lg btn-primary" type="submit">Log In</button>
+      <button class="w-100 btn btn-lg btn-primary mb-5" type="submit">Log In</button>
     </form>
     
     <p class="text-muted">

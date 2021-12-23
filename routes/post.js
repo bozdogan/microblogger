@@ -6,7 +6,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    const posts = await Post.find({});
+    const posts = await Post.find({}).sort({ date_created: -1 });
     res.render("posts/index", { posts, user: req.activeAccount });
 });
 
@@ -54,7 +54,7 @@ router.get("/:id/edit", async (req, res) => {
         const post = await Post.findById(postId);
         const activeUser = req.activeAccount;
         if(activeUser.username === post.author) {
-            res.render("posts/edit", { post });
+            res.render("posts/edit", { post, user: req.activeAccount});
             return;
         }
     }
