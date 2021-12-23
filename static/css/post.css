@@ -12,11 +12,3 @@
 {
     content: '~';
 }
-
-a.logout {
-    text-decoration: none;
-}
-
-a.logout:hover {
-    text-decoration: underline;
-}

@@ -32,6 +32,16 @@ app.use(session({
     saveUninitialized: false
 }));
 
+app.use(async (req, res, next) => {
+    // TODO(bora): This is messy. Tidy this up!
+    if(req.session.userId) {
+        req.activeAccount = await require("./models/account").findById(req.session.userId);
+        console.log(`Active user: ${req.activeAccount.username} (${req.session.userId})`);
+    }
+    
+    next();
+});
+
 app.use("/", indexRoutes);
 app.use("/", postRoutes);
 app.use("/", accountRoutes);

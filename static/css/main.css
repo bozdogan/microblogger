@@ -46,7 +46,14 @@ h1 {
     margin-bottom: .5rem;
 }
 
-
 .navbar-brand .brand {
     color: #ddd;
+}
+
+a.logout {
+    text-decoration: none;
+}
+
+a.logout:hover {
+    text-decoration: underline;
 }

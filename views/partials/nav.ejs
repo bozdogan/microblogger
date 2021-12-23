@@ -18,11 +18,27 @@
           <a class="nav-link <% if(locals.activePage === 'new-post') { %>active<% } %>" href="/posts/new">Send a Post</a>
         </li>
       </ul>
+<% if(!locals.user) { %>
       <ul class="nav navbar-nav navbar-right">
         <li class="nav-item">
           <a class="nav-link <% if(locals.activePage === 'login') { %>active<% } %>" href="/login">Login</a>
         </li>
       </ul>
+<% } else { %>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+          <div class="small">
+            <span class="text-muted">Logged in as</span>
+            <span class="text-info"><%= user.username %></span>
+          </div>
+          <div class="text-end">
+            <a class="text-danger logout" href="/logout" title="Log Out">
+              Log out
+            </a>
+          </div>
+        </li>
+      </ul>
+<% } %>
     </div>
   </div>
 </nav>
