@@ -57,7 +57,7 @@ router.post("/signup/apply", async (req, res) => {
     if(result) {
         console.log(`New user signed up: ${username}`);
         req.session.userId = account._id;
-        res.redirect("/account/posts");
+        res.redirect("/posts");
     } else {
         res.redirect("/account/signup");
     }
