@@ -2,7 +2,8 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand d-flex w-50 me-auto" href="/">
-      <span class="brand">Wallposter</span>
+      <img class="" height="48" src="/res/wp-brand.png">
+      <span class="brand fs-4 ms-1 my-auto">Wallposter</span>
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,7 +11,7 @@
     </button>
 
     <div class="collapse navbar-collapse w-100" id="navbarNav">
-      <ul class="nav navbar-nav w-100 justify-content-center">
+      <ul class="nav navbar-nav w-100 justify-content-center text-center">
         <li class="nav-item">
           <a class="nav-link <% if(locals.activePage === 'posts') { %>active<% } %>" href="/posts">See the Wall</a>
         </li>
@@ -19,20 +20,20 @@
         </li>
       </ul>
 <% if(!locals.user) { %>
-      <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
-        <li class="nav-item text-end">
+      <ul class="nav navbar-nav ms-auto w-100 justify-content-end text-end">
+        <li class="nav-item">
           <a class="nav-link <% if(locals.activePage === 'login') { %>active<% } %>" href="/account/login">Login</a>
         </li>
       </ul>
 <% } else { %>
-      <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
-        <li class="nav-item text-end">
+      <ul class="nav navbar-nav ms-auto w-100 justify-content-end text-end">
+        <li class="nav-item">
           <div class="small">
             <span class="text-muted">Logged in as</span>
             <span class="text-info"><%= user.username %></span>
           </div>
           <div class="">
-            <a class="text-danger logout" href="/account/logout" title="Log Out">
+            <a class="text-muted logout" href="/account/logout" title="Log Out">
               Log out
             </a>
           </div>

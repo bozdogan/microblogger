@@ -1,5 +1,4 @@
 const Account = require("../models/account");
-const bcrypt = require("bcrypt");
 const express = require("express");
 
 

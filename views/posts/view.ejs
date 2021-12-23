@@ -16,7 +16,6 @@
     <div class="row">
 <% if(post) { %>
       <div class="card bg-light">
-        <span id="postIdLb" class="hidden"><%= post._id %></span>
         
   <% if(locals.user && user.username === post.author) { %> 
         <div class="ms-auto mt-2">
