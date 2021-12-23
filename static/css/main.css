@@ -22,14 +22,14 @@ h1 {
 }
 
 .navbar-brand {
-    position: absolute;
-    top: 8px;
+    /* position: absolute;
+    top: 8px; */
     background: no-repeat top left/3rem url(/res/wp-brand.png);
 }
 
 .navbar-right {
-    position: absolute;
-    top: .5rem;
+    /* position: absolute;
+    top: .5rem; */
     right: 1rem;
 }
 

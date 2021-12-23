@@ -1,16 +1,16 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand me-auto" href="/">
+    <a class="navbar-brand d-flex w-50 me-auto" href="/">
       <span class="brand">Wallposter</span>
     </a>
 
-    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-      <ul class="nav navbar-nav">
+    <div class="collapse navbar-collapse w-100" id="navbarNav">
+      <ul class="nav navbar-nav w-100 justify-content-center">
         <li class="nav-item">
           <a class="nav-link <% if(locals.activePage === 'posts') { %>active<% } %>" href="/posts">See the Wall</a>
         </li>
@@ -19,19 +19,19 @@
         </li>
       </ul>
 <% if(!locals.user) { %>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">
+      <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
+        <li class="nav-item text-end">
           <a class="nav-link <% if(locals.activePage === 'login') { %>active<% } %>" href="/login">Login</a>
         </li>
       </ul>
 <% } else { %>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">
+      <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
+        <li class="nav-item text-end">
           <div class="small">
             <span class="text-muted">Logged in as</span>
             <span class="text-info"><%= user.username %></span>
           </div>
-          <div class="text-end">
+          <div class="">
             <a class="text-danger logout" href="/logout" title="Log Out">
               Log out
             </a>
