@@ -6,7 +6,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    const posts = await Post.find({}).sort({ date_created: -1 });
+    const posts = await Post.find({}).sort({ date_created: -1 }).populate("author");
     res.render("posts/index", { posts, user: req.activeAccount });
 });
 
@@ -40,7 +40,7 @@ router.post("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     const postId = req.params.id;
-    const data = { post: await Post.findById(postId) };
+    const data = { post: await Post.findById(postId).populate("author") };
     if(req.session.userId) {
         data.user = req.activeAccount;
     }
@@ -51,7 +51,7 @@ router.get("/:id", async (req, res) => {
 router.get("/:id/edit", async (req, res) => {
     const postId = req.params.id;
     if(req.session.userId) {
-        const post = await Post.findById(postId);
+        const post = await Post.findById(postId).populate("author");
         const activeUser = req.activeAccount;
         if(activeUser.username === post.author) {
             res.render("posts/edit", { post, user: req.activeAccount});

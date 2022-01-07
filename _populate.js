@@ -9,64 +9,8 @@ const Account = require("./models/account");
 const DATABASE_URL = "mongodb://127.0.0.1:27017/wallposter";
 
 const populateDatabase = async function() {
-    try {
-        await mongoose.connect(DATABASE_URL);
-        console.log("MONGO OK");
-    } catch(err) {
-        console.log("AH FUCK! I CAN'T BELIEVE YOU'VE DONE THIS.");
-        console.log(err);
-    }
 
     try {
-        await Post.insertMany([
-            {
-                message: "tbh, I believe Zack Snyder did nothing wrong. it's your own corruptness to say mean things to him!",
-                author: "catmobile69",
-                date_created: new Date(2021, 10, 29, 13, 22)
-            },
-            {
-                message: "yes, he isn't the hero we need. but neither is he the hero we deserve",
-                author: "eaglewarriorman",
-                date_created: new Date(2021, 10, 29, 13, 45)
-            },
-            {
-                message: "this is a wonderful day",
-                author: "Karen",
-                date_created: new Date(2021, 09, 03, 11, 56)
-            },
-            {
-                message: "yeah Karen, you are absolutely right!",
-                author: "imieinazwisko",
-                date_created: new Date(2021, 09, 03, 12, 01)
-            },
-            {
-                message: "THİS İS GOOD.",
-                author: "soyturco",
-                date_created: new Date(2021, 10, 05, 17, 42)
-            },
-            {
-                message: "Öncellikle kestane balının diyarı Zonguldak Gökçebey, Hazanoğlu köyünden tüm dünyaya selam olsun.",
-                author: "newcomer",
-                date_created: new Date(2021, 10, 06, 15, 31, 02)
-            },
-            {
-                message: "My unpopular opinion: The Last Jedi is the BEST MOVIE EVA!!1!",
-                author: "author",
-                date_created: new Date(2021, 11, 06, 13, 34, 31)
-            },
-            {
-                message: "Die with memories but not dreams",
-                author: "Gül",
-                date_created: new Date("2021-12-23T13:29:55.788Z")
-            },
-            {
-                message: "just setting up my wall pstr",
-                author: "bora",
-                date_created: new Date("2021-12-23T13:35:49.534Z")
-            }
-        ]);
-        console.log("Posts inserted.");
-
         await Account.insertMany([
             {
                 username: "root",
@@ -129,14 +73,88 @@ const populateDatabase = async function() {
                 date_created: new Date("2021-12-23T13:26:14.495Z")
             },
         ]);
-        console.log("Accounts added.");  
+        console.log("Accounts added.");
 
-        mongoose.disconnect();
-        console.log("DONE");          
+        const findIdByName = async function(accountId) {
+            try {
+                return (await Account.findOne({username: accountId}))["_id"];
+            } catch(e) {
+                console.log("Error while fetching id ", e);
+                return null;
+            }
+        };
+
+        await Post.insertMany([
+            {
+                message: "tbh, I believe Zack Snyder did nothing wrong. it's your own corruptness to say mean things to him!",
+                author: await findIdByName("catmobile69"),
+                date_created: new Date(2021, 10, 29, 13, 22)
+            },
+            {
+                message: "yes, he isn't the hero we need. but neither is he the hero we deserve",
+                author: await findIdByName("eaglewarriorman"),
+                date_created: new Date(2021, 10, 29, 13, 45)
+            },
+            {
+                message: "this is a wonderful day",
+                author: await findIdByName("Karen"),
+                date_created: new Date(2021, 09, 03, 11, 56)
+            },
+            {
+                message: "yeah Karen, you are absolutely right!",
+                author: await findIdByName("imieinazwisko"),
+                date_created: new Date(2021, 09, 03, 12, 01)
+            },
+            {
+                message: "THİS İS GOOD.",
+                author: await findIdByName("soyturco"),
+                date_created: new Date(2021, 10, 05, 17, 42)
+            },
+            {
+                message: "Öncellikle kestane balının diyarı Zonguldak Gökçebey, Hazanoğlu köyünden tüm dünyaya selam olsun.",
+                author: await findIdByName("newcomer"),
+                date_created: new Date(2021, 10, 06, 15, 31, 02)
+            },
+            {
+                message: "My unpopular opinion: The Last Jedi is the BEST MOVIE EVA!!1!",
+                author: await findIdByName("author"),
+                date_created: new Date(2021, 11, 06, 13, 34, 31)
+            },
+            {
+                message: "Die with memories but not dreams",
+                author: await findIdByName("Gül"),
+                date_created: new Date("2021-12-23T13:29:55.788Z")
+            },
+            {
+                message: "just setting up my wall pstr",
+                author: await findIdByName("bora"),
+                date_created: new Date("2021-12-23T13:35:49.534Z")
+            }
+        ]);
+        console.log("Posts inserted.");
     } catch(err) {
         console.log(err);
     }
-}
+};
 
+(async function() {
+    try {
+        await mongoose.connect(DATABASE_URL);
+        console.log("MONGO OK");
+    } catch(err) {
+        console.log("\nDB ERROR\n");
+        console.log(err);
+        process.exit(1);
+    }
 
-populateDatabase();
+    if(process.argv[2] === "--nuke") {
+        console.log("Nuking collections...\n");
+        await Account.deleteMany({});
+        await Post.deleteMany({});
+    }
+
+    await populateDatabase();
+
+    mongoose.disconnect();
+    console.log("\nDONE");
+})();

@@ -6,7 +6,8 @@ const postSchema = new mongoose.Schema({
         required: true
     },
     author: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Account",
         required: true
     },
     date_created: {
@@ -14,6 +15,4 @@ const postSchema = new mongoose.Schema({
     }
 });
 
-
-const Post = mongoose.model("Post", postSchema);
-module.exports = Post;
+module.exports = mongoose.model("Post", postSchema);
